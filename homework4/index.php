@@ -25,4 +25,6 @@ if ($money1->equals($money2) == true) {
     echo '- Yes, they are.' . '<br><br>';
 } else echo '- No, they are not' . '<br><br>';
 
-echo 'Money 1 + Money 2 = ' . $money1->add($money2) . $money1->getCurrency()->getCode();
+$moneySum = $money1->add($money2);
+
+echo 'Money 1 + Money 2 = ' . $moneySum->getAmount() . $moneySum->getCurrency()->getCode();

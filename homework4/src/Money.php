@@ -50,10 +50,12 @@ class Money
 
     public function add(Money $money)
     {
-
         if ($this->currency == $money->currency) {
-            $result = $this->amount + $money->amount;
+            $amount = $this->amount + $money->amount;
+            $currency = $this->getCurrency();
         } else throw new \InvalidArgumentException('Currencies are not same');
+
+        $result = new Money($amount, $currency);
 
         return $result;
     }
