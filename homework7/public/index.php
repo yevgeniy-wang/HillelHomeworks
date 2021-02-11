@@ -60,7 +60,13 @@ $post->save();
 
 /*
 $post = \Hillel\Homework7\Model\Post::find(10);
-$post->delete();
+
+if($tags = $post->tags) {
+    foreach ($tags as $tag) {
+        $post->tags()->detach($tag->id);
+    }
+    $post->delete();
+} else $post->delete();
 */
 
 //task 7
@@ -74,17 +80,39 @@ for ($i = 1; $i < 11; $i++) {
 }
 */
 
+
 //task 8
 
 /*
-$collection = \Hillel\Homework7\Model\Tag::all();
-$rand1 = $collection[0]->id;
-$rand2 = count($collection);
 $post = \Hillel\Homework7\Model\Post::all();
+
+$r1 = $post[0]->id;
+$r2 = count($post);
+
 foreach ($post as $key => $value) {
+
+    // ROLL
+    $rand_1 = rand($r1, $r2);
+    $rand_2 = rand($r1, $r2);
+    $rand_3 = rand($r1, $r2);
+
+    // Validate random for non equals
+    $some = false;
+    while ($some) {
+        if ($rand_1 == $rand_2 or $rand_1 == $rand_3) {
+            $rand_1 = rand($r1, $r2);
+        }
+        if ($rand_2 == $rand_3) {
+            $rand_2 = rand($r1, $r2);
+        }
+        if ($rand_1 != $rand_2 and $rand_1 != $rand_3 and $rand_2 != $rand_3) {
+            $some = true;
+        }
+    }
+    // do not exec if rand di not go properly
     $post = \Hillel\Homework7\Model\Post::find($key + 1);
-    $post->tags()->attach([rand($rand1, $rand2), rand($rand1, $rand2), rand($rand1, $rand2)]);
+    if (!empty($post['id'])) {
+        $post->tags()->attach([$rand_1, $rand_2, $rand_3]);
+    }
 }
 */
-
-
